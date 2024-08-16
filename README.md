@@ -2,4 +2,6 @@
 目前只支援標準ASCII
 
 只要輸入想印出之文字就會自動輸出
-![image](https://github.com/user-attachments/assets/0fefcffb-a27e-4f3d-a81e-d1c5cd291333)
+
+![Desktop 2024 08 16 - 15 06 31 06](https://github.com/user-attachments/assets/77269358-42dc-4250-b236-c590b57365d6)
+
