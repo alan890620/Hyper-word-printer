@@ -67,10 +67,11 @@ using namespace std;
 62 111110
 63 111111
 */
-int main ()
-{
-	int boss [127][7] = {
-	{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
+
+
+char list [127][7] = {
+	{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
+	{0,0,0,0,0,0,3},		//Space
 	{2,2,2,2,0,2,3},		//!
 	{5,5,0,0,0,0,3},		//"
 	{0,10,63,10,63,10,6},	//#
@@ -143,10 +144,10 @@ int main ()
 	{3,4,15,4,4,8,4},		//f
 	{0,6,9,7,1,7,4},		//g
 	{8,14,9,9,9,9,4},		//h
-	{0,2,0,2,2,2,4},		//i
+	{0,2,0,2,2,2,3},		//i
 	{0,2,0,2,2,6,4},		//j
 	{8,9,10,12,10,9,4},		//k
-	{2,2,2,2,2,2,4},		//l
+	{2,2,2,2,2,2,3},		//l
 	{0,51,51,45,45,33,6},	//m
 	{0,6,9,9,9,9,4},		//n
 	{0,6,9,9,9,6,4},		//o
@@ -166,42 +167,41 @@ int main ()
 	{4,2,3,3,2,4,3},		//}
 	{0,0,8,21,2,0,6},		//~
 	};
-	
-	
-	int m , tr = 0 ;
-	string word ;
-	int p2[6] ;
-	cout << "Type Text In Here:"; 
-	getline (cin , word );
-	//cout << word << endl ;
-	m = word.length() ;
+
+void printer ( string text , int speed , int space )
+{
+	char n = text.length();
 	for ( int t6 = 0 ; t6 < 6 ; t6 ++ )//行數 
 	{
-		for ( int tm = 0 ; tm < m ; tm ++ )//字元數 
+		for ( int tn = 0 ; tn < n ; tn ++ )//字元數 
 		{
-			for (int t = 0 ; t != 6 ; t++ )//二進位轉換 
+			int tr = list [ text [ tn ] ][ 6 ] ;//縮排控制 
+			for ( int tout = tr ; tout > space ; tout -- )//輸出
 			{
-				if ((( boss [ word [ tm ] ][ t6 ] >> t ) & 1 ) == 1 )
-				p2 [ t ] = 1 ;
-				else
-				p2 [ t ] = 0 ;
-			}//*/
-			 
-			tr = boss [ word [ tm ] ][ 6 ] ; //縮排控制 
-			for ( int tout = 0 ; tout < tr ; tout ++ )//輸出
-			{
-				if ( p2 [ tr - tout - 1 ] == 0 )
-					cout << "  " ;
-				else
+				if ((( list [ text [ tn ] ][ t6 ] >> tout ) & 1 )) //二進制轉換 
 				{
-					Sleep ( 20 ) ;
+					Sleep ( speed ) ;
 					cout << "##" ;
 				}
-			} 
-			cout << "    " ;
+				else
+					cout << "  " ;
+			}
 		}
 		cout << endl ;
 	}
-	system ("pause");
+}
 
+int main ()
+{
+	string text ;
+	int speed = 20 , space = 2;//顯示速度 字元間隔 
+	
+	while ( true)
+	{
+		cout << "Type Text In Here(Type 0 to exit):"; 
+		getline ( cin , text );
+		if ( text == "0" )
+			break ;
+		printer ( text , speed , - space );
+	}
 }
